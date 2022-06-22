@@ -41,7 +41,6 @@ export function BottomTabBar({ state, descriptors, navigation }: BottomTabBarPro
 const styles = StyleSheet.create({
   tabContainer: {
     paddingTop: vs(5),
-    height: mvs(50, 0.7),
     flexDirection: 'row',
     borderTopWidth: s(2)
   }

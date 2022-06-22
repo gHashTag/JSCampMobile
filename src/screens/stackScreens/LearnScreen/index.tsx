@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import { RouteProp, useFocusEffect, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types'
@@ -50,8 +50,10 @@ export function LearnScreen({ navigation, route }: LearnScreenT) {
   }, [])
   useFocusEffect(
     useCallback(() => {
-      setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
-      return () => StatusBar.setBackgroundColor(background)
+      if (Platform.OS === 'android') {
+        setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
+        return () => StatusBar.setBackgroundColor(background)
+      }
     }, [])
   )
   useEffect(() => {
@@ -71,7 +73,6 @@ export function LearnScreen({ navigation, route }: LearnScreenT) {
       return () => clearInterval(timerId)
     }
   }, [emojiData, speed])
-  console.log(curEmoji)
   const isSymbol = curEmoji?.name?.length === 1
 
   return (

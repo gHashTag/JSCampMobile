@@ -13,6 +13,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 import { useNavigation, useTheme } from '@react-navigation/native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const lineW = W / 1.85
 const errorSound = new Sound('error.wav')
@@ -24,6 +25,7 @@ export function EmojiSelect({ onWin, variants }: EmojiSelectT) {
   const score = useSharedValue(0)
   const soundRef = useRef<Sound>()
   const buttons = useRef<emojiT[]>([])
+  const { bottom } = useSafeAreaInsets()
   const { goBack } = useNavigation()
   const [correct, setCorrect] = useState<emojiT>()
   const [isTrue, setIsTrue] = useState<boolean>()
@@ -119,7 +121,7 @@ export function EmojiSelect({ onWin, variants }: EmojiSelectT) {
           )}
           keyExtractor={() => nanoid()}
         />
-        <Space height={vs(20)} />
+        <Space height={bottom + vs(10)} />
       </View>
     </View>
   )

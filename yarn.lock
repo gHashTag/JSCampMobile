@@ -4955,11 +4955,6 @@
     "array-includes" "^3.1.4"
     "object.assign" "^4.1.2"
 
-"just-performance@4.3.0":
-  "integrity" "sha512-L7RjvtJsL0QO8xFs5wEoDDzzJwoiowRw6Rn/GnvldlchS2JQr9wFYPiwZcDfrbbujEKqKN0tvENdbjXdYhDp5Q=="
-  "resolved" "https://registry.npmjs.org/just-performance/-/just-performance-4.3.0.tgz"
-  "version" "4.3.0"
-
 "keymirror@^0.1.1":
   "integrity" "sha512-vIkZAFWoDijgQT/Nvl2AHCMmnegN2ehgTPYuyy2hWQkQSntI0S7ESYqdLkoSe1HyEBFHHkCgSIvVdSEiWwKvCg=="
   "resolved" "https://registry.npmjs.org/keymirror/-/keymirror-0.1.1.tgz"
@@ -5047,13 +5042,6 @@
   dependencies:
     "prelude-ls" "~1.1.2"
     "type-check" "~0.3.2"
-
-"limiter@^2.1.0":
-  "integrity" "sha512-361TYz6iay6n+9KvUUImqdLuFigK+K79qrUtBsXhJTLdH4rIt/r1y8r1iozwh8KbZNpujbFTSh74mJ7bwbAMOw=="
-  "resolved" "https://registry.npmjs.org/limiter/-/limiter-2.1.0.tgz"
-  "version" "2.1.0"
-  dependencies:
-    "just-performance" "4.3.0"
 
 "lines-and-columns@^1.1.6":
   "integrity" "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { Platform, ScrollView, StyleSheet, View } from 'react-native'
 // @ts-ignore
 // import example from '../../../DATA/example.md' // don't touch
 // import Markdown from 'react-native-markdown-display'
@@ -26,6 +26,7 @@ export function LessonDetail({ navigation, route }: LessonDetailT) {
   const theme = useTheme()
   // const markStyle = getMarkdownStyle(theme)
   const oLestener = (orientation: Orientation.orientation) => {
+    console.log(orientation)
     const portrair = orientation === 'PORTRAIT'
     setIsPortrait(portrair)
   }
@@ -36,19 +37,23 @@ export function LessonDetail({ navigation, route }: LessonDetailT) {
   const { bgColor } = useTypedSelector(state => state.bgColor)
   const backgroundColor = dark ? background : bgColor
   useFocusEffect(() => {
-    setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
-    return () => StatusBar.setBackgroundColor(background)
+    if (Platform.OS === 'android') {
+      setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
+      return () => StatusBar.setBackgroundColor(background)
+    }
   })
 
   useEffect(() => {
+    console.log('one')
     Orientation.unlockAllOrientations()
     Orientation.addOrientationListener(oLestener)
     return () => {
+      console.log('two')
       StatusBar.setHidden(false)
       Orientation.lockToPortrait()
       Orientation.removeOrientationListener(oLestener)
     }
-  })
+  }, [])
 
   const handleBack = () => {
     navigation.goBack()
@@ -75,7 +80,7 @@ export function LessonDetail({ navigation, route }: LessonDetailT) {
           title={header}
         />
       )}
-      <SafeAreaView style={container}>
+      <View style={container}>
         {/* @ts-ignore */}
         {/* <Markdown rules={markStyle.rules} mergeStyle={false} style={markStyle.styles}>
           {example}
@@ -94,7 +99,7 @@ export function LessonDetail({ navigation, route }: LessonDetailT) {
             <Button color={white} onPress={handleTest} title="Тест" />
           </View>
         )}
-      </SafeAreaView>
+      </View>
     </View>
   )
 }

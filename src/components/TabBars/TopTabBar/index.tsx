@@ -73,7 +73,6 @@ export function TopTabBar({ state, navigation, descriptors }: MaterialTopTabBarP
 const styles = StyleSheet.create({
   tabContainer: {
     paddingBottom: vs(5),
-    height: mvs(55, 0.7),
     flexDirection: 'row'
   },
   line: {

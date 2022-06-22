@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import { RouteProp, useFocusEffect, useTheme } from '@react-navigation/native'
 import {
   DragVariant,
@@ -37,8 +37,10 @@ export function TestScreen({ navigation, route }: TestScreenT) {
   } = useTheme()
   const backgroundColor = dark ? background : bgColor
   useFocusEffect(() => {
-    setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
-    return () => StatusBar.setBackgroundColor(background)
+    if (Platform.OS === 'android') {
+      setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
+      return () => StatusBar.setBackgroundColor(background)
+    }
   })
 
   const onWin = () => {

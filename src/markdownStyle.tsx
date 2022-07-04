@@ -1,25 +1,42 @@
 import React from 'react'
 import { Theme } from '@react-navigation/native'
-import { StyleSheet } from 'react-native'
+import { Image, ScrollView, StyleProp, StyleSheet, TextStyle, View } from 'react-native'
 import { RenderRules } from 'react-native-markdown-display'
-import { s, vs } from 'react-native-size-matters'
+import { s, vs, ms } from 'react-native-size-matters'
 import { CodeHighlighter, Text } from './components'
-import { secondary } from './constants'
+import { secondary, W } from './constants'
 import { nanoid } from 'nanoid/non-secure'
+
+const factor = 0.3
+const bodyText = {
+  fontSize: ms(14, factor),
+  fontFamily: 'Spectral-Medium',
+  lineHeight: ms(22, factor)
+}
 
 export const getMarkdownStyle = (theme: Theme) => {
   const {
     colors: { text, border, primary, notification, background, card }
   } = theme
+  const paragraph: StyleProp<TextStyle> = {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '100%',
+    ...bodyText,
+    color: border,
+    letterSpacing: ms(0.2, factor)
+  }
   const styles = StyleSheet.create({
     body: {},
     // Headings
     heading1: {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
-      fontSize: s(30),
+      fontSize: ms(28, factor),
       marginTop: vs(10),
-      marginBottom: vs(16),
+      marginBottom: vs(10),
       alignSelf: 'center',
       color: text
     },
@@ -27,57 +44,53 @@ export const getMarkdownStyle = (theme: Theme) => {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
       color: text,
-      fontSize: s(22),
+      fontSize: ms(26, factor),
       marginTop: vs(8),
-      marginBottom: vs(10)
+      marginBottom: vs(8),
+      marginLeft: ms(8, factor)
     },
     heading3: {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
       color: text,
-      fontSize: s(18),
+      fontSize: ms(24, factor),
       marginTop: vs(6),
-      marginBottom: vs(6)
+      marginBottom: vs(6),
+      marginLeft: ms(8, factor)
     },
     heading4: {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
       color: text,
-      fontSize: s(16),
-      marginTop: vs(4),
-      marginBottom: vs(4)
+      fontSize: ms(22, factor),
+      marginTop: vs(6),
+      marginBottom: vs(4),
+      marginLeft: ms(8, factor)
     },
     heading5: {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
       color: text,
-      fontSize: s(13),
+      fontSize: ms(20, factor),
       marginTop: vs(4),
-      marginBottom: vs(4)
+      marginBottom: vs(2),
+      marginLeft: ms(8, factor)
     },
     heading6: {
       flexDirection: 'row',
       fontFamily: 'Spectral-Bold',
       color: text,
-      fontSize: s(11),
+      fontSize: ms(18, factor),
       marginTop: vs(4),
-      marginBottom: vs(4)
+      marginLeft: ms(8, factor)
     },
 
     // Text Output
     text: {},
     textgroup: {},
     paragraph: {
-      marginVertical: vs(8),
-      lineHeight: s(18),
-      flexWrap: 'wrap',
-      fontFamily: 'Spectral-Medium',
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-      width: '100%',
-      fontSize: s(14),
-      color: border
+      ...paragraph,
+      marginVertical: vs(6)
     },
     hardbreak: {
       width: '100%',
@@ -112,7 +125,7 @@ export const getMarkdownStyle = (theme: Theme) => {
       backgroundColor: 'rgba(139, 139, 139, 0.1)',
       borderColor: secondary,
       borderLeftWidth: s(1),
-      paddingLeft: s(10),
+      paddingLeft: ms(10, factor),
       paddingBottom: vs(4)
     },
     // Code
@@ -132,6 +145,52 @@ export const getMarkdownStyle = (theme: Theme) => {
       paddingVertical: s(10),
       paddingHorizontal: s(5),
       borderRadius: s(10)
+    },
+    list_item: {
+      ...paragraph,
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
+    },
+    // Images
+    image: {
+      flex: 1,
+      borderRadius: s(12),
+      overflow: 'hidden'
+    },
+    // Tables
+    table: {
+      borderWidth: 0,
+      borderColor: border,
+      borderRadius: s(5)
+    },
+    thead: {
+      color: text,
+      fontFamily: 'Spectral-Bold',
+      fontSize: ms(15, factor),
+      flex: 1,
+      borderColor: border,
+      borderTopWidth: s(1)
+    },
+    tbody: {
+      color: text,
+      ...bodyText
+    },
+    th: {
+      borderRightWidth: s(1),
+      borderColor: border,
+      flex: 1,
+      padding: s(5)
+    },
+    tr: {
+      borderLeftWidth: s(1),
+      borderColor: border,
+      flexDirection: 'row'
+    },
+    td: {
+      borderRightWidth: s(1),
+      borderColor: border,
+      flex: 1,
+      padding: s(5)
     }
   })
   const rules: RenderRules = {
@@ -141,7 +200,7 @@ export const getMarkdownStyle = (theme: Theme) => {
       return <CodeHighlighter key={nanoid()} type={a.sourceInfo} codeText={a.content} />
     },
     code_inline: a => {
-      console.log('code_inline:', a)
+      // console.log('code_inline:', a)
       return <CodeHighlighter key={nanoid()} type={'js'} codeText={a.content} />
     }
   }
@@ -151,7 +210,7 @@ export const getMarkdownStyle = (theme: Theme) => {
   }
 }
 
-export const markdownStyle = StyleSheet.create({
+const markdownStyle = StyleSheet.create({
   body: {},
 
   // Horizontal Rule
@@ -190,28 +249,6 @@ export const markdownStyle = StyleSheet.create({
 
   // Code
 
-  // Tables
-  table: {
-    borderWidth: 1,
-    borderColor: '#000000',
-    borderRadius: 3
-  },
-  thead: {},
-  tbody: {},
-  th: {
-    flex: 1,
-    padding: 5
-  },
-  tr: {
-    borderBottomWidth: 1,
-    borderColor: '#000000',
-    flexDirection: 'row'
-  },
-  td: {
-    flex: 1,
-    padding: 5
-  },
-
   // Links
   link: {
     textDecorationLine: 'underline'
@@ -220,25 +257,6 @@ export const markdownStyle = StyleSheet.create({
     flex: 1,
     borderColor: '#000000',
     borderBottomWidth: 1
-  },
-
-  // Images
-  image: {
-    flex: 1
-  },
-
-  // Text Output
-  text: {},
-  textgroup: {},
-  paragraph: {
-    marginTop: vs(7),
-    marginBottom: vs(7),
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    width: '100%',
-    fontSize: s(14)
   },
   hardbreak: {
     width: '100%',

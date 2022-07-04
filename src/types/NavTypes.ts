@@ -1,21 +1,18 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
-import { questionsT, sectionT } from './LessonTypes'
+import { allPartsT, questionsT, sectionT } from './LessonTypes'
 
 export type RootStackParamList = {
   UI: undefined
   BOTTOM_TABS?: NavigatorScreenParams<RootBottomTabParamList>
-  LESSON_DETAIL_SCREEN: lessonDetail
-  TEST_SCREEN: {
-    tests: questionsT[]
-    questsHeader: string
-  }
-  LEARN_SCREEN: {
-    words: questionsT[]
+  // Lesson
+  LESSON_SCREEN: undefined
+  EXAM_SCREEN: {
+    questions: questionsT[]
+    part: allPartsT
   }
 }
 interface lessonDetail extends sectionT {
   header: string
-  questsHeader: string
 }
 
 export type RootBottomTabParamList = {

@@ -5,7 +5,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { s } from 'react-native-size-matters'
 import { Text } from '../'
 import { en_color, green } from '../../constants'
-import ProgressCircle from 'react-native-progress-circle'
+import CircularProgress from 'react-native-circular-progress-indicator'
 
 interface RenderCircleT {
   item: progressElementT
@@ -21,16 +21,16 @@ export const RenderCircle = ({ item, index, text, circleColor }: RenderCircleT) 
       <MaterialIcon name="check" size={s(20)} color={green} />
     </View>
   ) : item.isStarted ? (
-    <ProgressCircle
-      percent={item.percents}
+    <CircularProgress
+      value={item.percents}
+      maxValue={100}
       radius={s(13)}
-      borderWidth={s(1.5)}
-      color={green}
-      shadowColor={text}
-      bgColor={circleColor}
+      valueSuffix={'%'}
+      inActiveStrokeColor={green}
+      inActiveStrokeOpacity={0}
     >
       <Text title={item.percents.toString()} h2 oneColor={text} />
-    </ProgressCircle>
+    </CircularProgress>
   ) : (
     <View style={[circle, { borderColor: text }]}>
       <MaterialIcon name="close" size={s(20)} color={text} />

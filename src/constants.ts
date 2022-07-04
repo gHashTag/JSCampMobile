@@ -1,14 +1,23 @@
 import { createNavigationContainerRef } from '@react-navigation/native'
 import { Dimensions, Platform } from 'react-native'
+import { initLessonData, toggleColor } from './slices'
+import { store } from './store'
 import { RootStackParamList } from './types'
+import { LessonData, sectionT } from './types/LessonTypes'
+import { allPartsT } from './types/LessonTypes'
 
 // NAVIGATION
 export const navRef = createNavigationContainerRef<RootStackParamList>()
 
 export const goToUI = () => {
-  // @ts-ignore
-  if (navRef.isReady) {
+  if (navRef.isReady()) {
     navRef.navigate('UI')
+  }
+}
+
+export const goBack = () => {
+  if (navRef.isReady()) {
+    navRef.goBack()
   }
 }
 
@@ -39,8 +48,12 @@ export const ts_color = '#007ACD'
 export const aws_gradient = '#FC30F3'
 export const aws_color = '#FF06F4'
 
-export const getColor = (id: number) => {
-  return ['#FDBEEA', '#F3DE50', '#BEFCE5', '#007ACD', '#FF06F4'][id]
+export const getColor = (id: number | allPartsT) => {
+  if (typeof id === 'number') {
+    return [en_color, js_color, rn_color, ts_color, aws_color][id]
+  } else if (typeof id === 'string') {
+    return { en: en_color, js: js_color, rn: rn_color, ts: ts_color, aws: aws_color }[id]
+  }
 }
 // THEMES
 export const lightTheme = {
@@ -72,6 +85,34 @@ export const Dolbak = Platform.OS === 'ios' ? 'The Dolbak' : 'TheDolbak-Brush'
 export const Etna = Platform.OS === 'ios' ? 'Etna' : 'etna-free-font'
 export const Narrow = '3270Narrow'
 
+// FETCH
+
+export const fetchJson = async (url: string) => {
+  try {
+    const res = await (await fetch(url)).json()
+    return res
+  } catch (error) {
+    handleError(error)
+    return []
+  }
+}
+
+export const fetchText = async (url: string) => {
+  try {
+    const res = await (await fetch(url)).text()
+    return res
+  } catch (error) {
+    handleError(error)
+    return ''
+  }
+}
+
+// FUNCTIONS
+
+export const handleError = (error: any) => {
+  console.log('MY error: ', error)
+}
+
 export function shuffle(array: any[]) {
   return array
     .map(value => ({ value, sort: Math.random() }))
@@ -81,4 +122,17 @@ export function shuffle(array: any[]) {
 
 export function getRandomItem(arr: any[]) {
   return arr[Math.floor(Math.random() * arr.length)]
+}
+
+export const handlePressCard = (
+  color: allPartsT,
+  sections: sectionT[],
+  cardName: string,
+  id: number
+) => {
+  store.dispatch(toggleColor(color))
+  store.dispatch(initLessonData({ sections, cardName, part: color, id }))
+  if (navRef.isReady()) {
+    navRef.navigate('LESSON_SCREEN')
+  }
 }

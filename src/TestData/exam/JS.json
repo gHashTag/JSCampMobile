@@ -4,9 +4,8 @@
     "cardTitle": "Data Types",
     "sections": [
       {
-        "type": "lesson",
+        "type": "video",
         "header": "Data Types",
-        "questsHeader": "Сhoose the right variant",
         "poster": "https://s3.eu-central-1.wasabisys.com/jscamp/JSForKids/00-DataTypes/DataTypes.png",
         "contentUrl": "https://s3.eu-central-1.wasabisys.com/jscamp/JSForKids/00-DataTypes/DataTypes-JS.mp4"
       }

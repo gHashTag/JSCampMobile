@@ -41,7 +41,7 @@ export function CodeHighlighter({ type = 'jsx', codeText }: CodeHighlighterT) {
       <SyntaxHighlighter
         fontFamily={'Hack-Regular'}
         highlighter={'prism'}
-        fontSize={s(14)}
+        fontSize={s(13)}
         style={isDark ? tomorrow : undefined}
         language={'jsx'}
         customStyle={highlighter}

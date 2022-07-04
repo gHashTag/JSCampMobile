@@ -12,6 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2E0AD0C3286F7B8F00D5DB97 /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C1286F7B8E00D5DB97 /* error.wav */; };
+		2E0AD0C4286F7B8F00D5DB97 /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C1286F7B8E00D5DB97 /* error.wav */; };
+		2E0AD0C5286F7B8F00D5DB97 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */; };
+		2E0AD0C6286F7B8F00D5DB97 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */; };
 		2EEF82B62863AA3B003BC587 /* KLMN_Flash_Pix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3915B0DA68B240EF9862D643 /* KLMN_Flash_Pix.ttf */; };
 		2EEF82B72863AA3B003BC587 /* IBM-Logo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF9C6C3B042E402D942CAF75 /* IBM-Logo.ttf */; };
 		2EEF82B82863AA3B003BC587 /* Spectral-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9980D0FE190E48F3990A1DA0 /* Spectral-Medium.ttf */; };
@@ -61,6 +65,8 @@
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-jscamp-jscampTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jscamp-jscampTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27AE97DAB1DD4562B759D10F /* Spectral-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spectral-MediumItalic.ttf"; path = "../assets/fonts/Spectral-MediumItalic.ttf"; sourceTree = "<group>"; };
 		2940FE3AB8494E40986DE2F2 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		2E0AD0C1286F7B8E00D5DB97 /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error.wav; sourceTree = "<group>"; };
+		2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		30F2418DCEB348779FD11BB2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		316D48CC2C9445D0B0B0F249 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		3915B0DA68B240EF9862D643 /* KLMN_Flash_Pix.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = KLMN_Flash_Pix.ttf; path = ../assets/fonts/KLMN_Flash_Pix.ttf; sourceTree = "<group>"; };
@@ -187,6 +193,8 @@
 		AE5FBD0BBAE04121AA3371AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E0AD0C1286F7B8E00D5DB97 /* error.wav */,
+				2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */,
 				F0E43962E3EB43C38F85F703 /* 3270Narrow.ttf */,
 				F852745CF295459A9E626484 /* etna-free-font.otf */,
 				72C66298FA1F49AD8EB902C7 /* Hack-Regular.ttf */,
@@ -322,8 +330,10 @@
 				2EEF82C82863AA3D003BC587 /* Spectral-Bold.ttf in Resources */,
 				2EEF82C22863AA3D003BC587 /* Spectral-Medium.ttf in Resources */,
 				2EEF82C52863AA3D003BC587 /* Spectral-MediumItalic.ttf in Resources */,
+				2E0AD0C6286F7B8F00D5DB97 /* win.mp3 in Resources */,
 				2EEF82C32863AA3D003BC587 /* 3270Narrow.ttf in Resources */,
 				2EEF82C72863AA3D003BC587 /* TheDolbak-Brush.ttf in Resources */,
+				2E0AD0C4286F7B8F00D5DB97 /* error.wav in Resources */,
 				2EEF82C42863AA3D003BC587 /* Hack-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +344,8 @@
 			files = (
 				2EEF82BF2863AA3B003BC587 /* etna-free-font.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				2E0AD0C3286F7B8F00D5DB97 /* error.wav in Resources */,
+				2E0AD0C5286F7B8F00D5DB97 /* win.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				2EEF82BA2863AA3B003BC587 /* Hack-Regular.ttf in Resources */,
 				2EEF82B82863AA3B003BC587 /* Spectral-Medium.ttf in Resources */,
@@ -584,21 +596,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5EM4M85VSQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = jscamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.sumerian;
 				PRODUCT_NAME = jscamp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -610,19 +625,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5EM4M85VSQ;
 				INFOPLIST_FILE = jscamp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.sumerian;
 				PRODUCT_NAME = jscamp;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

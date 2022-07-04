@@ -1,10 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
-import { RouteProp, useFocusEffect, useTheme } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../../types'
-import { useTypedSelector } from '../../../store'
-import StatusBar from '@react-native-community/status-bar'
+import React, { useEffect, useRef, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { RootStackParamList } from '../../../../types'
 import {
   CenterView,
   EmojiSlider,
@@ -12,50 +8,34 @@ import {
   Loading,
   Space,
   Text
-} from '../../../components'
+} from '../../../../components'
 import Emoji from 'react-native-emoji'
 import { s, vs } from 'react-native-size-matters'
-import { shuffle, white } from '../../../constants'
-import { emojiT } from '../../../types/LessonTypes'
+import { fetchJson, goBack, shuffle, white } from '../../../../constants'
+import { emojiT } from '../../../../types/LessonTypes'
 import Sound from 'react-native-sound'
-
-interface LearnScreenT {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'LEARN_SCREEN'>
-  route: RouteProp<RootStackParamList, 'LEARN_SCREEN'>
-}
+import { useTypedDispatch, useTypedSelector } from '../../../../store'
+import { goPrevious } from '../../../../slices'
 
 const win = new Sound('win.mp3')
 
-export function LearnScreen({ navigation, route }: LearnScreenT) {
-  const { words } = route.params
-  const dataUrl = words[0].emoji?.dataUrl
+export function EmojiLearnScreen() {
+  const { lessonData, currentLesson, sectionIndex } = useTypedSelector(st => st.section)
+  const dataUrl = currentLesson?.contentUrl
   const [emojiData, setEmojiData] = useState<emojiT[]>()
   const [curEmoji, setCurEmoji] = useState<emojiT>()
   const [speed, setSpeed] = useState<number>(35)
   const curIndex = useRef<number>(0)
-  const { bgColor } = useTypedSelector(state => state.bgColor)
-  const {
-    dark,
-    colors: { background }
-  } = useTheme()
-  const backgroundColor = dark ? background : bgColor
+  const dispatch = useTypedDispatch()
   const fetchEmojiData = async () => {
     if (dataUrl) {
-      const res = await (await fetch(dataUrl)).json()
+      const res = await fetchJson(dataUrl)
       setEmojiData(shuffle(res))
     }
   }
   useEffect(() => {
     fetchEmojiData()
   }, [])
-  useFocusEffect(
-    useCallback(() => {
-      if (Platform.OS === 'android') {
-        setTimeout(() => StatusBar.setBackgroundColor(backgroundColor), 50)
-        return () => StatusBar.setBackgroundColor(background)
-      }
-    }, [])
-  )
   useEffect(() => {
     if (emojiData) {
       const timerId = setInterval(() => {
@@ -67,7 +47,7 @@ export function LearnScreen({ navigation, route }: LearnScreenT) {
           curIndex.current = curIndex.current + 1
         } else {
           win.play()
-          navigation.goBack()
+          dispatch(goPrevious())
         }
       }, 5000 - speed * 40)
       return () => clearInterval(timerId)
@@ -76,8 +56,13 @@ export function LearnScreen({ navigation, route }: LearnScreenT) {
   const isSymbol = curEmoji?.name?.length === 1
 
   return (
-    <View style={[container, { backgroundColor }]}>
-      <Header onPressL={navigation.goBack} nameIconL=":back:" title={curEmoji?.title} />
+    <View style={container}>
+      <Header
+        onPressL={() => dispatch(goPrevious())}
+        nameIconL=":back:"
+        textColor={white}
+        title={curEmoji?.title}
+      />
       {emojiData && curEmoji ? (
         <>
           <CenterView>
@@ -98,7 +83,7 @@ export function LearnScreen({ navigation, route }: LearnScreenT) {
           <Space height={vs(45)} />
         </>
       ) : (
-        <View style={[container, { backgroundColor }]}>
+        <View style={container}>
           <Loading color={white} />
         </View>
       )}

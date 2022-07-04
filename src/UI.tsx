@@ -1,82 +1,30 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { s, vs } from 'react-native-size-matters'
-import {
-  Button,
-  ButtonEmoji,
-  Header,
-  InputAnswer,
-  LessonCard,
-  SelectMany,
-  Space,
-  Text,
-  TextError,
-  EmojiSelect
-} from './components'
-import { H, ts_color, ts_gradient } from './constants'
-
+import Markdown from 'react-native-markdown-display'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Space } from './components'
+//import example from './TestData/example.md'
+import { useTheme } from '@react-navigation/native'
+import { getMarkdownStyle } from './markdownStyle'
+const example = `
+| Номер | Название | Цена |
+| ----: | :------: | ---: |
+|     1 |   шило   |   10 |
+|     2 |   мыло   |   20 |
+|     3 | веревка  |   40 |
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5eeea355389655.59822ff824b72.gif)
+ `
 export function UI() {
+  const { top } = useSafeAreaInsets()
+  const theme = useTheme()
+  const mdStyle = getMarkdownStyle(theme)
   return (
     <ScrollView style={container}>
-      <Text title="Text h0 Кириллица" h0 />
-      <Text title="Text h1 Кириллица" h1 centerText />
-      <Text title="Text h2 Кириллица" h2 />
-      <Text title="Text h3 Кириллица" h3 />
-      <Text title="Text h4 Кириллица" h4 />
-      <Text title="Text h5 Кириллица" h5 oneColor="blue" />
-      <Text title="Text h6 Кириллица" h6 />
-      <Text title="Text h7 Кириллица" h7 />
-      <Text title="Text h8 Кириллица" h8 textStyle={{ textAlign: 'right' }} />
-      <Text
-        title="Text h9 Кириллица"
-        h9
-        colors={{
-          light: 'yellow',
-          dark: 'pink'
-        }}
-      />
-      <Text title="Text body hahha Кириллица" bodyH oneColor="blue" />
-      <Space height={vs(20)} />
-      <TextError
-        onPress={() => console.log('error pressed')}
-        title="TEXT error и кириллица"
-      />
-      <Space height={vs(20)} />
-      <Button onPress={() => console.log('button pressed')} title="Button" />
-      <LessonCard
-        gradient={{ top: ts_gradient, bottom: ts_color }}
-        leftIcon="language-typescript"
-        title="Some lesson for TypeScript tab. Interfaces."
-        lightText
-        elements={[
-          { isStarted: true, percents: 40 },
-          { isStarted: false, percents: 0 },
-          { isStarted: false, percents: 0 },
-          { isStarted: false, percents: 0 },
-          { isStarted: false, percents: 0 },
-          { isStarted: false, percents: 0 }
-        ]}
-      />
-      <Header
-        onPressL={() => console.log('L')}
-        onPressR={() => console.log('R')}
-        nameIconL="chevron-left"
-        title="Haha it's very big Header"
-      />
-      <View style={{ height: H, width: '100%' }}>
-        <SelectMany
-          onWin={() => console.log('win')}
-          questionText="За сколько лет можно изучить программирование?"
-          correctAnswers={['1', '2', '3']}
-          variants={['1', '5', '2', '7', '12', '3', '18', '57', '26', '74']}
-        />
-      </View>
-      <InputAnswer
-        onWin={() => console.log('you win!')}
-        correctAnswer="react NatiVe"
-        questionText="Введите лучшую библиотеку в мире для создания приложений"
-      />
-      <Space height={vs(50)} />
+      <Space height={top} />
+      <Markdown style={mdStyle.styles} rules={mdStyle.rules}>
+        {example}
+      </Markdown>
     </ScrollView>
   )
 }
@@ -84,7 +32,7 @@ export function UI() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: s(20)
+    paddingHorizontal: s(5)
   }
 })
 

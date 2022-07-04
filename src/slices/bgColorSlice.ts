@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { en_color, rn_color, aws_color, ts_color, js_color } from '../constants'
+import { Appearance } from 'react-native'
+import { en_color, rn_color, aws_color, ts_color, js_color, black } from '../constants'
+import { allPartsT } from '../types/LessonTypes'
 
 const initialState: initT = {
-  bgColor: en_color
+  bgColor: undefined,
+  bgWithScheme: undefined
 }
 
 const allColors = {
@@ -13,25 +16,44 @@ const allColors = {
   js: js_color
 }
 
-type allColorsT = 'en' | 'rn' | 'aws' | 'ts' | 'js'
-
 export const bgColorSlice = createSlice({
   name: 'bgColor',
   initialState,
   reducers: {
     setColor: (state, action: PayloadAction<string>) => {
-      state.bgColor = action.payload
+      const isDark = Appearance.getColorScheme() === 'dark'
+      if (!isDark) {
+        state.bgColor = action.payload
+      } else {
+        state.bgColor = black
+      }
     },
-    toggleColor: (state, action: PayloadAction<allColorsT>) => {
-      state.bgColor = allColors[action.payload]
+    toggleColor: (state, action: PayloadAction<allPartsT>) => {
+      const isDark = Appearance.getColorScheme() === 'dark'
+      if (!isDark) {
+        state.bgColor = allColors[action.payload]
+        state.bgWithScheme = allColors[action.payload]
+      } else {
+        state.bgColor = allColors[action.payload]
+        state.bgWithScheme = black
+      }
+    },
+    delColors: state => {
+      state.bgColor = undefined
+      state.bgWithScheme = undefined
+    },
+    schemeToggle: (state, action: PayloadAction<boolean>) => {
+      const isDark = action.payload
+      state.bgWithScheme = isDark ? black : state.bgColor
     }
   }
 })
 
-export const { setColor, toggleColor } = bgColorSlice.actions
+export const { setColor, toggleColor, delColors, schemeToggle } = bgColorSlice.actions
 
 export const bgColorReducer = bgColorSlice.reducer
 
 interface initT {
-  bgColor: string
+  bgColor: string | undefined
+  bgWithScheme: string | undefined
 }

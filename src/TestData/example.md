@@ -50,19 +50,23 @@ This text is **_really important_**
 
 `import React from "react"`
 
-```jsx
-function App() {
-  return <App/>
+```tsx
+function App(): AppT {
+  return <App />
 }
+export { App }
 
-function hello() {
-  return <Text>Hello world<Text/>
-}
-function RenderLongText() {
-  return <Text>Very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong<Text/>
+type AppT = {
+  children: any
 }
 ```
 
 ![The San Juan Mountains are beautiful!](https://sun3.userapi.com/sun3-9/s/v1/ig2/z35d1UVyOBdncPkiPLv7Tzmoz1qYPXL9Y59HyPBvxu5TtaURifxpxiILzr5hMpYZWZxP4LA3mNZRMphQJZLecLr-.jpg?size=678x678&quality=95&type=album)
+
+| Номер | Название | Цена |
+| ----: | :------: | ---: |
+|     1 |   шило   |   10 |
+|     2 |   мыло   |   20 |
+|     3 | веревка  |   40 |
 
 [Color picker](https://htmlcolorcodes.com)

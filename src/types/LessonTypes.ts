@@ -1,17 +1,18 @@
+export type allPartsT = 'en' | 'rn' | 'aws' | 'ts' | 'js'
+
 export interface LessonData {
   id: number
   cardTitle: string
-  leftIcon?: string
+  cardImage: string
   sections: sectionT[]
 }
 
 export type sectionT = {
-  type: 'lesson' | 'quest'
-  contentUrl?: string
-  questions?: questionsT[]
-  header: string
-  questsHeader: string
-  poster?: string
+  type: 'markdown' | 'video' | 'quest' | 'emojiLearn' | 'learn' | 'win' // 'win' no json
+  poster?: string // if "video"
+  contentUrl?: string // if "video" or "markdown" or "emojiLearn" or 'learn'
+  question?: questionsT // if  any
+  header?: string
 }
 
 export type questionsT = {

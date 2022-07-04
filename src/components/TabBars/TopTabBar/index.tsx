@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
-import { StyleSheet, useColorScheme, View, Animated } from 'react-native'
+import { StyleSheet, useColorScheme, View } from 'react-native'
 import { mvs, vs } from 'react-native-size-matters'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Tab } from '../Tab'
 import { en_color, getColor, W } from '../../../constants'
+import { useTypedDispatch } from '../../../store'
+import { setTabLineColor } from '../../../slices'
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated'
 
 const tabWidth = W / 5
 
@@ -12,24 +20,30 @@ export function TopTabBar({ state, navigation, descriptors }: MaterialTopTabBarP
   const { index, routes } = state
   const { top } = useSafeAreaInsets()
   const paddingTop = top + vs(5)
-  const lineAnim = useRef(new Animated.Value(0)).current
   const scheme = useColorScheme()
   const [lineColor, setLineColor] = useState(en_color)
-
+  const dispatch = useTypedDispatch()
+  // Animation
+  const x = useSharedValue(0)
   useEffect(() => {
-    startAnim(index)
+    x.value = withTiming(tabWidth * index, { duration: 300 }, () => {
+      runOnJS(onAnimationEnd)()
+    })
   }, [index])
 
-  const startAnim = (index: number) => {
-    Animated.timing(lineAnim, {
-      toValue: index * tabWidth,
-      duration: 200,
-      useNativeDriver: true
-    }).start(() => {
-      const curColor = getColor(index)
+  const onAnimationEnd = () => {
+    const curColor = getColor(index)
+    if (curColor) {
       setLineColor(curColor)
-    })
+      dispatch(setTabLineColor(curColor))
+    }
   }
+
+  const lineAnim = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: x.value }]
+    }
+  })
 
   const handlePress = (name: string, isFocused: boolean) => {
     if (!isFocused) {
@@ -60,12 +74,7 @@ export function TopTabBar({ state, navigation, descriptors }: MaterialTopTabBarP
           />
         )
       })}
-      <Animated.View
-        style={[
-          line,
-          { backgroundColor: lineColor, transform: [{ translateX: lineAnim }] }
-        ]}
-      />
+      <Animated.View style={[line, { backgroundColor: lineColor }, lineAnim]} />
     </View>
   )
 }

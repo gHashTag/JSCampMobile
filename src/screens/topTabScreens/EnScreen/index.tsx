@@ -52,6 +52,7 @@ export function EnScreen({ navigation, route }: EnScreenT) {
         return (
           <LessonCard
             border={!isDark}
+            part="en"
             id={item.id}
             key={nanoid()}
             onPress={() => handlePressCard('en', item.sections, item.cardTitle, item.id)}

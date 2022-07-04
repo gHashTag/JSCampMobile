@@ -48,6 +48,8 @@ export function JsScreen({ navigation, route }: JsScreenT) {
       {data.map((item: LessonData) => {
         return (
           <LessonCard
+            part="js"
+            id={item.id}
             border={!isDark}
             key={nanoid()}
             onPress={() => handlePressCard('js', item.sections, item.cardTitle, item.id)}

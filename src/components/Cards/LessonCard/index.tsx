@@ -5,9 +5,12 @@ import { s, vs } from 'react-native-size-matters'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import { Text, ProgressChain, progressElementT } from '../../'
 import { black, W, white } from '../../../constants'
+import { useTypedSelector } from '../../../store'
+import { allPartsT } from '../../../types/LessonTypes'
 
 interface LessonCardT {
   id: number
+  part: allPartsT
   cardImage?: string
   title?: string
   gradient: {
@@ -20,16 +23,18 @@ interface LessonCardT {
 }
 
 const widthCard = W - s(15) * 2
-
+const borderRadius = s(10)
 export function LessonCard({
   cardImage,
   id,
+  part,
   gradient,
   lightText,
   onPress,
   border
 }: LessonCardT) {
   const text = lightText ? white : black
+  const isComplete = useTypedSelector(st => st.profile.passed[part]).includes(id)
   return (
     <Gradient
       colors={[gradient.top, gradient.bottom]}
@@ -37,10 +42,16 @@ export function LessonCard({
       style={[container, border && bordered]}
     >
       <TouchableOpacity activeOpacity={0.5} style={pressableContainer} onPress={onPress}>
-        <Image style={imgStyle} resizeMode="stretch" source={{ uri: cardImage }} />
-        {/* <Pressable style={subContainer} onPress={onPress}>
-         <EntypoIcon color={text} name={'check'} size={s(65)} />
-      </Pressable> */}
+        <Image
+          borderRadius={borderRadius}
+          style={imgStyle}
+          resizeMode="stretch"
+          source={{ uri: cardImage }}
+        />
+
+        {isComplete && (
+          <EntypoIcon style={checkStyle} color={text} name={'check'} size={s(35)} />
+        )}
       </TouchableOpacity>
     </Gradient>
   )
@@ -48,7 +59,7 @@ export function LessonCard({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: s(10),
+    borderRadius: borderRadius,
     width: widthCard,
     height: widthCard,
     marginVertical: vs(15)
@@ -60,13 +71,10 @@ const styles = StyleSheet.create({
     borderWidth: s(2),
     borderColor: white
   },
-  headerContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  headerText: {
-    flex: 1,
-    marginLeft: s(5)
+  checkStyle: {
+    position: 'absolute',
+    left: s(10),
+    top: s(10)
   },
   imgStyle: {
     width: '100%',
@@ -74,4 +82,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const { container, bordered, imgStyle, pressableContainer } = styles
+const { container, bordered, imgStyle, pressableContainer, checkStyle } = styles

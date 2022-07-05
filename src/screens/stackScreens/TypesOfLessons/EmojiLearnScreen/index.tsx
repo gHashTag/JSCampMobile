@@ -54,14 +54,14 @@ export function EmojiLearnScreen() {
     }
   }, [emojiData, speed])
   const isSymbol = curEmoji?.name?.length === 1
-
+  const title = curEmoji?.title
   return (
     <View style={container}>
       <Header
         onPressL={() => dispatch(goPrevious())}
         nameIconL=":back:"
         textColor={white}
-        title={curEmoji?.title}
+        title={title && title.length > 1 ? curEmoji?.title : ' '}
       />
       {emojiData && curEmoji ? (
         <>

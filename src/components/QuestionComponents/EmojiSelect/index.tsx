@@ -121,7 +121,7 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
         onPressL={handleBack}
         onPressR={handlePlay}
         nameIconR=":loud_sound:"
-        title={title ? title : '...'}
+        title={title ? (title.length > 1 ? title : ' ') : '...'}
       />
       <View>
         <View style={lineContainer}>

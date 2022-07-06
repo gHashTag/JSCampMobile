@@ -66,7 +66,9 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
       }
     }, [] as any)
     const correctAnswer: emojiT = getRandomItem(vars)
-    const soundObj = new Sound(correctAnswer.url)
+    const soundObj = new Sound(correctAnswer.url, undefined, err => {
+      if (!err) soundObj.play()
+    })
 
     if (score.value >= max.current) {
       score.value = score.value + 1
@@ -78,7 +80,6 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
       soundRef.current = soundObj
       buttons.current = vars
       setCorrect(correctAnswer)
-      setTimeout(() => soundRef.current?.play(), 600)
       score.value = score.value + 1
     }
   }

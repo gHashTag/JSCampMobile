@@ -1,32 +1,63 @@
-import React from 'react'
-import { StyleSheet, useColorScheme, View } from 'react-native'
-import { ComingSoon, LessonCard, ScrollContainer } from '../../../components'
-import { aws_color, aws_gradient } from '../../../constants'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, useColorScheme } from 'react-native'
+import { LessonCard, Loading, ScrollContainer } from '../../../components'
+import {
+  aws_color,
+  aws_gradient,
+  fetchJson,
+  handleError,
+  handlePressCard
+} from '../../../constants'
 import { AwsScreenT } from './type'
-import { FlatList } from 'react-native-gesture-handler'
 import { nanoid } from 'nanoid/non-secure'
-import { s, vs } from 'react-native-size-matters'
 import { LessonData } from '../../../types/LessonTypes'
+import { changeCourseLength } from '../../../slices'
+import { useTypedDispatch } from '../../../store'
 
 export function AwsScreen({ navigation, route }: AwsScreenT) {
   const isDark = useColorScheme() === 'dark'
-  return (
-    <ComingSoon bg="aws" />
-    // <ScrollContainer bgColor={!isDark ? aws_color : undefined}>
-    //   {/* <FlatList
-    //     data={data}
-    //     scrollEnabled={false}
-    //     ListHeaderComponent={() => <Space height={vs(20)} />}
-    //     renderItem={({ item }) => (
-    //       <LessonCard
-    //         onPress={() => handlePressCard(item)}
-    //         gradient={{ top: aws_gradient, bottom: aws_color }}
-    //         leftIcon="aws"
-    //         title={item.cardTitle}
-    //       />
-    //     )}
-    //     keyExtractor={() => nanoid()}
-    //   /> */}
-    // </ScrollContainer>
+  const [data, setData] = useState([])
+  const [load, setLoad] = useState(true)
+  const dispatch = useTypedDispatch()
+  useEffect(() => {
+    if (data.length > 0) {
+      dispatch(changeCourseLength({ part: 'aws', length: data.length }))
+    }
+  }, [data])
+  const fetchData = async () => {
+    try {
+      setLoad(true)
+      const res = await fetchJson(
+        'https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/Main.json'
+      )
+      setData(res)
+      setLoad(false)
+    } catch (error) {
+      handleError(error)
+    }
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
+  return load ? (
+    <Loading color={aws_color} />
+  ) : (
+    <ScrollContainer bgColor={!isDark ? aws_color : undefined}>
+      {/* @ts-ignore */}
+      {data.map((item: LessonData) => {
+        return (
+          <LessonCard
+            border={!isDark}
+            part="aws"
+            id={item.id}
+            key={nanoid()}
+            onPress={() => handlePressCard('aws', item.sections, item.cardTitle, item.id)}
+            gradient={{ top: aws_gradient, bottom: aws_color }}
+            cardImage={item.cardImage}
+            title={item.cardTitle}
+          />
+        )
+      })}
+    </ScrollContainer>
   )
 }

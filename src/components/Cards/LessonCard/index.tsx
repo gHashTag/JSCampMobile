@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   bordered: {
-    borderWidth: s(2),
+    borderWidth: s(0.9),
     borderColor: white
   },
   checkStyle: {

@@ -7,7 +7,7 @@ import { primary } from '../../constants'
 export function Loading({ color = primary }: LoadingT) {
   return (
     <View style={container}>
-      <Spinner color={color} type="9CubeGrid" size={s(110)} />
+      <Spinner color={color} type="9CubeGrid" size={s(85)} />
     </View>
   )
 }

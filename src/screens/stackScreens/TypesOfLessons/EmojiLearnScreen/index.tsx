@@ -40,16 +40,16 @@ export function EmojiLearnScreen() {
     if (emojiData) {
       const timerId = setInterval(() => {
         if (curIndex.current !== emojiData.length - 1) {
-          setCurEmoji(emojiData[curIndex.current])
           const soundObj = new Sound(emojiData[curIndex.current].url, undefined, () => {
+            setCurEmoji(emojiData[curIndex.current])
             soundObj.play()
+            curIndex.current = curIndex.current + 1
           })
-          curIndex.current = curIndex.current + 1
         } else {
           win.play()
           dispatch(goPrevious())
         }
-      }, 5000 - speed * 40)
+      }, 4500 - speed * 29)
       return () => clearInterval(timerId)
     }
   }, [emojiData, speed])

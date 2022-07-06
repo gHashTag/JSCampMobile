@@ -11,7 +11,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 import { s, vs } from 'react-native-size-matters'
-import { W } from '../../constants'
+import { darkGray, gray, lightGray, W } from '../../constants'
 
 const lineW = W - s(50)
 const left = s(-18.8)
@@ -19,7 +19,7 @@ const left = s(-18.8)
 export function EmojiSlider({ emojiL, emojiR, onChange, initPercent }: EmojiSliderT) {
   const {
     dark,
-    colors: { background, card, primary }
+    colors: { background, card, text }
   } = useTheme()
   const initX = initPercent ? initPercent * (lineW / 100) : 0
   const initHalf = initX < lineW / 2
@@ -60,7 +60,7 @@ export function EmojiSlider({ emojiL, emojiR, onChange, initPercent }: EmojiSlid
   const lineAnim = useAnimatedStyle(() => {
     return {
       width: x.value,
-      backgroundColor: primary
+      backgroundColor: dark ? text : darkGray
     }
   })
   return (

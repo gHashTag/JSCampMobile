@@ -5,7 +5,7 @@
     "sections": [
       {
         "type": "video",
-        "header": "Unicorn",
+        "header": "Authentication",
         "poster": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/01.AuthenticationPart1/poster.png",
         "contentUrl": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/01.AuthenticationPart1/video.mp4"
       }
@@ -17,7 +17,7 @@
     "sections": [
       {
         "type": "video",
-        "header": "Authentication",
+        "header": "Authentication 2",
         "poster": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/02.AuthenticationPart2/poster.png",
         "contentUrl": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/02.AuthenticationPart2/video.mp4"
       }
@@ -25,12 +25,12 @@
   },
   {
     "id": 3,
-    "cardImage": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/03.CRUD/poster.jpg",
+    "cardImage": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/03.CRUD/poster.png",
     "sections": [
       {
         "type": "video",
-        "header": "Authentication 2",
-        "poster": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/03.CRUD/poster.jpg",
+        "header": "CRUD",
+        "poster": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/03.CRUD/poster.png",
         "contentUrl": "https://s3.eu-central-1.wasabisys.com/jscamp/AWSForKids/03.CRUD/video.mp4"
       }
     ]

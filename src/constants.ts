@@ -45,8 +45,8 @@ export const rn_gradient = '#D3FFEF'
 export const rn_color = '#BEFCE5'
 export const ts_gradient = '#178FE0'
 export const ts_color = '#007ACD'
-export const aws_gradient = '#FC30F3'
-export const aws_color = '#FF06F4'
+export const aws_gradient = '#333435'
+export const aws_color = '#242526'
 
 export const getColor = (id: number | allPartsT) => {
   if (typeof id === 'number') {

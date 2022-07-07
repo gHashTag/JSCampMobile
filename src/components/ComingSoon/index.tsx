@@ -22,7 +22,7 @@ export function ComingSoon({ textColor, bg }: ComingSoonT) {
     <View style={[container, { backgroundColor: dark ? background : color }]}>
       <Text
         oneColor={textColor ? (dark ? white : textColor) : white}
-        fontSize={s(75)}
+        fontSize={s(53)}
         h9
         title="Soon ..."
       />

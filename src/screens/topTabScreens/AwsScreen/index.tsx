@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 import { LessonCard, Loading, ScrollContainer } from '../../../components'
 import {
   aws_color,
@@ -51,6 +51,7 @@ export function AwsScreen({ navigation, route }: AwsScreenT) {
             part="aws"
             id={item.id}
             key={nanoid()}
+            lightText
             onPress={() => handlePressCard('aws', item.sections, item.cardTitle, item.id)}
             gradient={{ top: aws_gradient, bottom: aws_color }}
             cardImage={item.cardImage}

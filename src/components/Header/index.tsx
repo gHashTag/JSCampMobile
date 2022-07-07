@@ -38,7 +38,7 @@ export function Header({
       {title && (
         <Text
           oneColor={textColor}
-          h7
+          h5
           title={title}
           numberOfLines={2}
           textStyle={titleStyle}
@@ -47,7 +47,7 @@ export function Header({
       {nameIconR ? (
         <ButtonSimpleEmoji onPress={onPressR} fontSize={fontSize} name={nameIconR} />
       ) : !nameIconR ? (
-        <Space width={fontSize * 1.65} />
+        <Space width={fontSize * 1.6} />
       ) : null}
     </View>
   )

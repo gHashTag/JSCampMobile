@@ -26,7 +26,7 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
   const [variants, setVariants] = useState([])
   const [load, setLoad] = useState(true)
   const [correct, setCorrect] = useState<emojiT>()
-  const [isTrue, setIsTrue] = useState<boolean>()
+  const [isTrue, setIsTrue] = useState<boolean>(true)
 
   // SHARED VALUE
   const step = useSharedValue(0)
@@ -67,7 +67,7 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
     }, [] as any)
     const correctAnswer: emojiT = getRandomItem(vars)
     const soundObj = new Sound(correctAnswer.url, undefined, err => {
-      if (!err) soundObj.play()
+      if (!err && score.value <= max.current) soundObj.play()
     })
 
     if (score.value >= max.current) {

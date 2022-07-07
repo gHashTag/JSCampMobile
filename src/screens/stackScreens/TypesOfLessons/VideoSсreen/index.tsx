@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
 import { Button, Header, Text, VideoPlayer } from '../../../../components'
-import { vs } from 'react-native-size-matters'
+import { s, vs } from 'react-native-size-matters'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { white } from '../../../../constants'
 import { useTypedDispatch, useTypedSelector } from '../../../../store'
@@ -30,9 +30,6 @@ export function VideoSсreen({}: VideoSсreenT) {
   }, [])
   const isLast = lastIndex - 1 === sectionIndex
   const handleBack = () => {
-    if (lastIndex === 1) {
-      dispatch(saveResult({ id: lessonId, part: part }))
-    }
     dispatch(goPrevious())
   }
   const handleNext = () => {
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   videoContainer: {
-    maxHeight: vs(230)
+    maxHeight: s(200)
   },
   btnContainer: {
     flexDirection: 'row',

@@ -32,7 +32,7 @@ export function TopTabBar({ state, navigation, descriptors }: MaterialTopTabBarP
   }, [index])
 
   const onAnimationEnd = () => {
-    const curColor = getColor(index)
+    const curColor = index === 4 ? '#FF06F4' : getColor(index)
     if (curColor) {
       setLineColor(curColor)
       dispatch(setTabLineColor(curColor))

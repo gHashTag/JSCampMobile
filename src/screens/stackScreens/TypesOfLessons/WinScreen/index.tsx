@@ -1,20 +1,34 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
-import { CenterView, Header, Space, Text } from '../../../../components'
+import { Balloon, CenterView, Header, Space, Text } from '../../../../components'
 // @ts-ignore
 import Unicorn from '../../../../../assets/gif/unicorn.gif'
 import { s, vs } from 'react-native-size-matters'
-import { goBack, W, white } from '../../../../constants'
+import { randomNumber, W, white, winSound } from '../../../../constants'
 import { useTypedSelector } from '../../../../store'
 import { useDispatch } from 'react-redux'
 import { incrementSection, saveResult } from '../../../../slices'
+import { useFocusEffect } from '@react-navigation/native'
+import { nanoid } from 'nanoid/non-secure'
 
 interface WinScreenT {
   title?: string
 }
 export function WinScreen({ title }: WinScreenT) {
   const { cardName, part, lessonId } = useTypedSelector(st => st.section)
+  const [balloons, setBalloons] = useState<number[]>([])
   const dispatch = useDispatch()
+  useFocusEffect(
+    useCallback(() => {
+      winSound.play()
+      const balloonsCount = randomNumber(10, 18)
+      let arr = []
+      for (let i = 0; i < balloonsCount; i++) {
+        arr.push(i)
+      }
+      setBalloons(arr)
+    }, [])
+  )
   const onExit = () => {
     dispatch(saveResult({ part, id: lessonId }))
     dispatch(incrementSection())
@@ -29,6 +43,9 @@ export function WinScreen({ title }: WinScreenT) {
           <Image style={gifStyle} source={Unicorn} />
         </View>
       </CenterView>
+      {balloons.map(a => (
+        <Balloon key={a} />
+      ))}
     </View>
   )
 }
@@ -46,6 +63,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1
+  },
+  balloonContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden'
   }
 })
-const { gifStyle, container, gifContainer } = styles
+const { gifStyle, container, gifContainer, balloonContainer } = styles

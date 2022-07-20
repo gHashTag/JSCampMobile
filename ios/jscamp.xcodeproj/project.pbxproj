@@ -16,6 +16,7 @@
 		2E0AD0C4286F7B8F00D5DB97 /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C1286F7B8E00D5DB97 /* error.wav */; };
 		2E0AD0C5286F7B8F00D5DB97 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */; };
 		2E0AD0C6286F7B8F00D5DB97 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */; };
+		2E38FE16287AF4D3005A65E6 /* clap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E38FE15287AF4D3005A65E6 /* clap.mp3 */; };
 		2EEF82B62863AA3B003BC587 /* KLMN_Flash_Pix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3915B0DA68B240EF9862D643 /* KLMN_Flash_Pix.ttf */; };
 		2EEF82B72863AA3B003BC587 /* IBM-Logo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF9C6C3B042E402D942CAF75 /* IBM-Logo.ttf */; };
 		2EEF82B82863AA3B003BC587 /* Spectral-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9980D0FE190E48F3990A1DA0 /* Spectral-Medium.ttf */; };
@@ -67,6 +68,7 @@
 		2940FE3AB8494E40986DE2F2 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		2E0AD0C1286F7B8E00D5DB97 /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error.wav; sourceTree = "<group>"; };
 		2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
+		2E38FE15287AF4D3005A65E6 /* clap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = clap.mp3; sourceTree = "<group>"; };
 		30F2418DCEB348779FD11BB2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		316D48CC2C9445D0B0B0F249 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		3915B0DA68B240EF9862D643 /* KLMN_Flash_Pix.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = KLMN_Flash_Pix.ttf; path = ../assets/fonts/KLMN_Flash_Pix.ttf; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				2E0AD0C1286F7B8E00D5DB97 /* error.wav */,
+				2E38FE15287AF4D3005A65E6 /* clap.mp3 */,
 				2E0AD0C2286F7B8F00D5DB97 /* win.mp3 */,
 				F0E43962E3EB43C38F85F703 /* 3270Narrow.ttf */,
 				F852745CF295459A9E626484 /* etna-free-font.otf */,
@@ -353,6 +356,7 @@
 				2EEF82B72863AA3B003BC587 /* IBM-Logo.ttf in Resources */,
 				2EEF82B62863AA3B003BC587 /* KLMN_Flash_Pix.ttf in Resources */,
 				2EEF82B92863AA3B003BC587 /* 3270Narrow.ttf in Resources */,
+				2E38FE16287AF4D3005A65E6 /* clap.mp3 in Resources */,
 				2EEF82BB2863AA3B003BC587 /* Spectral-MediumItalic.ttf in Resources */,
 				2EEF82BC2863AA3B003BC587 /* Spectral-BoldItalic.ttf in Resources */,
 				2EEF82BE2863AA3B003BC587 /* Spectral-Bold.ttf in Resources */,

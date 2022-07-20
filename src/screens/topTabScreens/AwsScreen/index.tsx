@@ -9,7 +9,6 @@ import {
   handlePressCard
 } from '../../../constants'
 import { AwsScreenT } from './type'
-import { nanoid } from 'nanoid/non-secure'
 import { LessonData } from '../../../types/LessonTypes'
 import { changeCourseLength } from '../../../slices'
 import { useTypedDispatch } from '../../../store'
@@ -50,8 +49,8 @@ export function AwsScreen({ navigation, route }: AwsScreenT) {
             border={!isDark}
             part="aws"
             id={item.id}
-            key={nanoid()}
-            lightText
+            key={item.id}
+            darkText
             onPress={() => handlePressCard('aws', item.sections, item.cardTitle, item.id)}
             gradient={{ top: aws_gradient, bottom: aws_color }}
             cardImage={item.cardImage}

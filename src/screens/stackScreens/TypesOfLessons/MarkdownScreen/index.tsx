@@ -5,8 +5,8 @@ import Markdown from 'react-native-markdown-display'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ms, s, vs } from 'react-native-size-matters'
 import { useDispatch } from 'react-redux'
-import { Button, Space } from '../../../../components'
-import { fetchText } from '../../../../constants'
+import { Button, LoadFailed, Loading, Space } from '../../../../components'
+import { fetchText, white } from '../../../../constants'
 import { getMarkdownStyle } from '../../../../markdownStyle'
 import { goPrevious, incrementSection } from '../../../../slices'
 import { useTypedSelector } from '../../../../store'
@@ -14,6 +14,7 @@ import { useTypedSelector } from '../../../../store'
 export function MarkdownScreen() {
   const { lessonData, currentLesson, sectionIndex } = useTypedSelector(st => st.section)
   const [markdown, setMarkdown] = useState('')
+  const [loading, setLoading] = useState(true)
   const theme = useTheme()
   const dispatch = useDispatch()
   const { top, bottom } = useSafeAreaInsets()
@@ -22,8 +23,10 @@ export function MarkdownScreen() {
   const { contentUrl } = currentLesson
   const fetchMD = async () => {
     if (contentUrl) {
+      setLoading(true)
       const res = await fetchText(contentUrl)
       setMarkdown(res)
+      setLoading(false)
     }
   }
   useEffect(() => {
@@ -35,6 +38,8 @@ export function MarkdownScreen() {
   const handleNext = () => {
     dispatch(incrementSection())
   }
+  if (!loading && markdown === '') return <LoadFailed />
+  if (loading) return <Loading color={white} />
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={container}>
       <Space height={top} />

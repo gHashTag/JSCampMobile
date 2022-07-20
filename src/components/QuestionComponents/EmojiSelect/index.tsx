@@ -2,7 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { nanoid } from 'nanoid/non-secure'
-import { en_color, fetchJson, getRandomItem, green, W, white } from '../../../constants'
+import {
+  en_color,
+  errorSound,
+  fetchJson,
+  getRandomItem,
+  green,
+  W,
+  white,
+  winSound
+} from '../../../constants'
 import { emojiT } from '../../../types/LessonTypes'
 import { ButtonEmoji, Text, Space, Header, Loading } from '../../'
 import { s, vs } from 'react-native-size-matters'
@@ -18,8 +27,6 @@ import { useDispatch } from 'react-redux'
 import { goPrevious } from '../../../slices'
 
 const lineW = W / 1.85
-const errorSound = new Sound('error.wav', Sound.MAIN_BUNDLE)
-const winSound = new Sound('win.mp3', Sound.MAIN_BUNDLE)
 
 export function EmojiSelect({ onWin, url }: EmojiSelectT) {
   // STATES
@@ -35,6 +42,7 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
   const soundRef = useRef<Sound>()
   const buttons = useRef<emojiT[]>([])
   const max = useRef<number>(0)
+  const forPass = useRef<emojiT[]>([])
   // OTHER HOOKS
   const { bottom } = useSafeAreaInsets()
   const dispatch = useDispatch()
@@ -43,7 +51,7 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
   const fetchEmojiData = async () => {
     setLoad(true)
     const res = await fetchJson(url)
-    const maxLength = res.length > 405 ? 400 : res.length > 112 ? 110 : res.length - 5
+    const maxLength = 1 //res.length > 405 ? 400 : res.length > 112 ? 110 : res.length - 1
     max.current = maxLength
     step.value = lineW / maxLength
     setVariants(res)
@@ -65,14 +73,17 @@ export function EmojiSelect({ onWin, url }: EmojiSelectT) {
         return pr
       }
     }, [] as any)
-    const correctAnswer: emojiT = getRandomItem(vars)
+    let correctAnswer: emojiT = getRandomItem(vars)
+    while (forPass.current.findIndex(a => a.name === correctAnswer.name) >= 0) {
+      correctAnswer = getRandomItem(vars)
+    }
+    forPass.current.push(correctAnswer)
     const soundObj = new Sound(correctAnswer.url, undefined, err => {
       if (!err && score.value <= max.current) soundObj.play()
     })
 
     if (score.value >= max.current) {
       score.value = score.value + 1
-      winSound.play()
       setTimeout(() => {
         onWin && onWin()
       }, 200)

@@ -8,7 +8,6 @@ import {
   handlePressCard
 } from '../../../constants'
 import { EnScreenT } from './type'
-import { nanoid } from 'nanoid/non-secure'
 import { LessonData } from '../../../types/LessonTypes'
 import { useColorScheme } from 'react-native'
 import { changeCourseLength } from '../../../slices'
@@ -54,7 +53,7 @@ export function EnScreen({ navigation, route }: EnScreenT) {
             border={!isDark}
             part="en"
             id={item.id}
-            key={nanoid()}
+            key={item.id}
             onPress={() => handlePressCard('en', item.sections, item.cardTitle, item.id)}
             gradient={{ top: en_gradient, bottom: en_color }}
             cardImage={item.cardImage}

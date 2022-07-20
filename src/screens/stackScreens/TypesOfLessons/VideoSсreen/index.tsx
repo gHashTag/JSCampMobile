@@ -5,7 +5,7 @@ import { s, vs } from 'react-native-size-matters'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { white } from '../../../../constants'
 import { useTypedDispatch, useTypedSelector } from '../../../../store'
-import { goPrevious, incrementSection, saveResult, setSection } from '../../../../slices'
+import { goPrevious, incrementSection, setSection } from '../../../../slices'
 
 interface VideoSсreenT {}
 
@@ -67,7 +67,7 @@ export function VideoSсreen({}: VideoSсreenT) {
         {isPortrait && (
           <View style={btnContainer}>
             {hasLearn && <Button color={white} onPress={handleLearn} title="Учить" />}
-            {!isLast && <Button color={white} onPress={handleNext} title="Дальше" />}
+            {!isLast && <Button color={white} onPress={handleNext} title="Тест" />}
           </View>
         )}
       </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   videoContainer: {
-    maxHeight: s(200)
+    maxHeight: s(196)
   },
   btnContainer: {
     flexDirection: 'row',

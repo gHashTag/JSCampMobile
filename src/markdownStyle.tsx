@@ -2,7 +2,7 @@ import React from 'react'
 import { Theme } from '@react-navigation/native'
 import { Image, ScrollView, StyleProp, StyleSheet, TextStyle, View } from 'react-native'
 import { RenderRules } from 'react-native-markdown-display'
-import { s, vs, ms } from 'react-native-size-matters'
+import { s, vs, ms, mvs } from 'react-native-size-matters'
 import { CodeHighlighter, Text } from './components'
 import { secondary, W } from './constants'
 import { nanoid } from 'nanoid/non-secure'
@@ -149,13 +149,15 @@ export const getMarkdownStyle = (theme: Theme) => {
     list_item: {
       ...paragraph,
       flexDirection: 'row',
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-start',
+      marginBottom: mvs(10, factor)
     },
     // Images
     image: {
       flex: 1,
       borderRadius: s(12),
-      overflow: 'hidden'
+      overflow: 'hidden',
+      marginBottom: mvs(20, factor)
     },
     // Tables
     table: {

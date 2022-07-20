@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid/non-secure'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, useColorScheme } from 'react-native'
 import { ExamIndicator, LessonCard, Loading, ScrollContainer } from '../../../components'
@@ -13,16 +12,13 @@ import { LessonData } from '../../../types/LessonTypes'
 import { JsScreenT } from './type'
 import { changeCourseLength } from '../../../slices'
 import { useTypedDispatch } from '../../../store'
+//import data from '../../../LocalData/Js/Main.json'
 
 export function JsScreen({ navigation, route }: JsScreenT) {
-  const [data, setData] = useState([])
   const [load, setLoad] = useState(true)
   const dispatch = useTypedDispatch()
-  useEffect(() => {
-    if (data.length > 0) {
-      dispatch(changeCourseLength({ part: 'js', length: data.length }))
-    }
-  }, [data])
+
+  const [data, setData] = useState([])
   const fetchData = async () => {
     try {
       setLoad(true)
@@ -38,6 +34,13 @@ export function JsScreen({ navigation, route }: JsScreenT) {
   useEffect(() => {
     fetchData()
   }, [])
+
+  useEffect(() => {
+    if (data.length > 0) {
+      dispatch(changeCourseLength({ part: 'js', length: data.length }))
+    }
+  }, [data])
+
   const isDark = useColorScheme() === 'dark'
   return load ? (
     <Loading color={js_color} />
@@ -51,7 +54,7 @@ export function JsScreen({ navigation, route }: JsScreenT) {
             part="js"
             id={item.id}
             border={!isDark}
-            key={nanoid()}
+            key={item.id}
             onPress={() => handlePressCard('js', item.sections, item.cardTitle, item.id)}
             gradient={{ top: js_gradient, bottom: js_color }}
             cardImage={item.cardImage}

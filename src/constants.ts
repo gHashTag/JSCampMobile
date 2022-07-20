@@ -1,5 +1,6 @@
 import { createNavigationContainerRef } from '@react-navigation/native'
 import { Dimensions, Platform } from 'react-native'
+import Sound from 'react-native-sound'
 import { initLessonData, toggleColor } from './slices'
 import { store } from './store'
 import { RootStackParamList } from './types'
@@ -36,6 +37,7 @@ export const darkGray = '#3B3B3B'
 export const lightGray = '#BFBFBF'
 export const brightTurquoise = '#1EE4EC'
 export const green = '#2ECC71'
+export const red = 'rgb(255, 69, 58)'
 
 export const en_gradient = '#FED2F1'
 export const en_color = '#FDBEEA'
@@ -85,6 +87,12 @@ export const Dolbak = Platform.OS === 'ios' ? 'The Dolbak' : 'TheDolbak-Brush'
 export const Etna = Platform.OS === 'ios' ? 'Etna' : 'etna-free-font'
 export const Narrow = '3270Narrow'
 
+// SOUNDS
+
+export const errorSound = new Sound('error.wav', Sound.MAIN_BUNDLE)
+export const winSound = new Sound('win.mp3', Sound.MAIN_BUNDLE)
+export const clapSound = new Sound('clap.mp3', Sound.MAIN_BUNDLE)
+
 // FETCH
 
 export const fetchJson = async (url: string) => {
@@ -99,8 +107,13 @@ export const fetchJson = async (url: string) => {
 
 export const fetchText = async (url: string) => {
   try {
-    const res = await (await fetch(url)).text()
-    return res
+    const fetchRes = await fetch(url)
+    if (fetchRes.ok) {
+      const res = await fetchRes.text()
+      return res
+    } else {
+      return ''
+    }
   } catch (error) {
     handleError(error)
     return ''
@@ -118,6 +131,15 @@ export function shuffle(array: any[]) {
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
+}
+
+export const randomProperty = (obj: any) => {
+  var keys = Object.keys(obj)
+  return obj[keys[(keys.length * Math.random()) << 0]]
+}
+
+export const randomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min)) + min
 }
 
 export function getRandomItem(arr: any[]) {

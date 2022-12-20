@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@hookform/resolvers": "^2.9.1",
+    "@hookform/resolvers": "^2.9.10",
     "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-clipboard/clipboard": "^1.10.0",
     "@react-navigation/bottom-tabs": "^6.3.1",

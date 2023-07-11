@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { RootStackParamList } from '../../../../types'
 import {
   CenterView,
   EmojiSlider,
@@ -11,7 +10,7 @@ import {
 } from '../../../../components'
 import Emoji from 'react-native-emoji'
 import { s, vs } from 'react-native-size-matters'
-import { fetchJson, goBack, shuffle, white } from '../../../../constants'
+import { fetchJson, shuffle, white } from '../../../../constants'
 import { emojiT } from '../../../../types/LessonTypes'
 import Sound from 'react-native-sound'
 import { useTypedDispatch, useTypedSelector } from '../../../../store'
@@ -20,22 +19,23 @@ import { goPrevious } from '../../../../slices'
 const win = new Sound('win.mp3')
 
 export function EmojiLearnScreen() {
-  const { lessonData, currentLesson, sectionIndex } = useTypedSelector(st => st.section)
+  const { currentLesson } = useTypedSelector(st => st.section)
   const dataUrl = currentLesson?.contentUrl
+
   const [emojiData, setEmojiData] = useState<emojiT[]>()
   const [curEmoji, setCurEmoji] = useState<emojiT>()
   const [speed, setSpeed] = useState<number>(35)
   const curIndex = useRef<number>(0)
   const dispatch = useTypedDispatch()
-  const fetchEmojiData = async () => {
+  const fetchEmojiData = useCallback(async () => {
     if (dataUrl) {
       const res = await fetchJson(dataUrl)
       setEmojiData(shuffle(res))
     }
-  }
+  }, [dataUrl])
   useEffect(() => {
     fetchEmojiData()
-  }, [])
+  }, [fetchEmojiData])
   useEffect(() => {
     if (emojiData) {
       const timerId = setInterval(() => {
@@ -52,27 +52,28 @@ export function EmojiLearnScreen() {
       }, 4500 - speed * 29)
       return () => clearInterval(timerId)
     }
-  }, [emojiData, speed])
+  }, [dispatch, emojiData, speed])
   const isSymbol = curEmoji?.name?.length === 1
-  const title = curEmoji?.title
+  // const title = curEmoji?.title
   return (
     <View style={container}>
       <Header
         onPressL={() => dispatch(goPrevious())}
         nameIconL=":back:"
         textColor={white}
-        title={title && title.length > 1 ? curEmoji?.title : ' '}
+        title={' '}
       />
       {emojiData && curEmoji ? (
         <>
           <CenterView>
+            <Space height={vs(30)} />
             {isSymbol ? (
-              <Text h10 title={curEmoji.title} />
+              <Text h1 title={curEmoji.title} />
             ) : (
               <Emoji name={curEmoji.name} style={emojiStyle} />
             )}
             <Space height={vs(30)} />
-            <Text oneColor={white} h8 title={curEmoji.ru} />
+            <Text oneColor={white} h8 title={curEmoji?.title} />
           </CenterView>
           <EmojiSlider
             initPercent={speed}

@@ -13,9 +13,26 @@ import { useColorScheme } from 'react-native'
 import { changeCourseLength } from '../../../slices'
 import { useTypedDispatch } from '../../../store'
 
+const res: LessonData[] = require('../../../LocalData/En/Main.json')
+const resExam: questionsT[] = require('../../../LocalData/exam/examEn.json')
+
+interface questionsT {
+  type:
+    | 'input'
+    | 'oneChoice'
+    | 'drag'
+    | 'manySelect'
+    | 'joinVariants'
+    | 'supplement'
+    | 'emoji'
+  text: string
+  options: string[]
+  correctAnswer: string
+}
+
 export function EnScreen({ navigation, route }: EnScreenT) {
-  const [data, setData] = useState([])
-  const [examData, setExamData] = useState([])
+  const [data, setData] = useState<LessonData[]>([])
+  const [examData, setExamData] = useState<questionsT[]>([])
   const [load, setLoad] = useState(true)
   const isDark = useColorScheme() === 'dark'
   const dispatch = useTypedDispatch()
@@ -26,12 +43,6 @@ export function EnScreen({ navigation, route }: EnScreenT) {
   }, [data])
   const fetchData = async () => {
     setLoad(true)
-    const res = await fetchJson(
-      'https://s3.eu-central-1.wasabisys.com/jscamp/EnForKids/Main.json'
-    )
-    const resExam = await fetchJson(
-      'https://s3.eu-central-1.wasabisys.com/jscamp/EnForKids/examData/examEn.json'
-    )
     setData(res)
     setExamData(resExam)
     setLoad(false)
